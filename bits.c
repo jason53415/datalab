@@ -125,7 +125,9 @@ int absVal(int x)
  */
 int addOK(int x, int y)
 {
-    return 42;
+    int sum = x + y;
+    int ok = ~(sum ^ x) | (x ^ y);
+    return (ok >> 30 >> 1) & 1;
 }
 
 /*
