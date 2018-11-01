@@ -441,7 +441,7 @@ int countLeadingZero(int x)
  */
 int copyLSB(int x)
 {
-    return 42;
+    return x << 30 << 1 >> 30 >> 1;
 }
 
 /*
