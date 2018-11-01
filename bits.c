@@ -372,7 +372,13 @@ int bitXor(int x, int y)
  */
 int byteSwap(int x, int n, int m)
 {
-    return 42;
+    int shift1 = n << 3;
+    int shift2 = m << 3;
+    int mask1 = 0xff << shift1;
+    int mask2 = 0xff << shift2;
+    int byte1 = ((x & (0xff << shift1)) >> shift1) & 0xff;
+    int byte2 = ((x & (0xff << shift2)) >> shift2) & 0xff;
+    return (x & ~mask1 & ~mask2) | (byte1 << shift2) | (byte2 << shift1);
 }
 
 /*
