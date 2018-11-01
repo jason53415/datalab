@@ -333,7 +333,20 @@ int bitParity(int x)
  */
 int bitReverse(int x)
 {
-    return 42;
+    int mask1 = 0xff | (0xff << 8);   // 0x0000ffff
+    int mask2 = 0xff | (0xff << 16);  // 0x00ff00ff
+    int mask3 = 0x0f | (0x0f << 8);
+    mask3 = mask3 | (mask3 << 16);  // 0x0f0f0f0f
+    int mask4 = 0x33 | (0x33 << 8);
+    mask4 = mask4 | (mask4 << 16);  // 0x33333333
+    int mask5 = 0x55 | (0x55 << 8);
+    mask5 = mask5 | (mask5 << 16);  // 0x55555555
+    x = ((x >> 16) & mask1) | ((x & mask1) << 16);
+    x = ((x >> 8) & mask2) | ((x & mask2) << 8);
+    x = ((x >> 4) & mask3) | ((x & mask3) << 4);
+    x = ((x >> 2) & mask4) | ((x & mask4) << 2);
+    x = ((x >> 1) & mask5) | ((x & mask5) << 1);
+    return x;
 }
 
 /*
