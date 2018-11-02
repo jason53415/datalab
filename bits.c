@@ -390,12 +390,7 @@ int byteSwap(int x, int n, int m)
  */
 int conditional(int x, int y, int z)
 {
-    x = x | (x << 1);
-    x = x | (x << 2);
-    x = x | (x << 4);
-    x = x | (x << 8);
-    x = x | (x << 16);
-    x = x >> 30 >> 1;
+    x = (!!x) << 30 << 1 >> 30 >> 1;
     return (x & y) | (~x & z);
 }
 
