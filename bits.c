@@ -461,7 +461,10 @@ int distinctNegation(int x)
  */
 int dividePower2(int x, int n)
 {
-    return 42;
+    int sign = (x >> 30 >> 1) & 0x1;
+    int divide = x >> n;
+    int notTotalDivde = !!((divide << n) ^ x);
+    return divide + (notTotalDivde & sign);
 }
 
 /*
