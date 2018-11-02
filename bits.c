@@ -475,7 +475,10 @@ int dividePower2(int x, int n)
  */
 int evenBits(void)
 {
-    return 42;
+    int mask = 0X55;
+    mask = mask | (mask << 8);
+    mask = mask | (mask << 16);
+    return mask;
 }
 
 /*
