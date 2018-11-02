@@ -539,7 +539,12 @@ int fitsShort(int x)
  */
 unsigned floatAbsVal(unsigned uf)
 {
-    return 42;
+    int exp = !(~(uf >> 23) & 0xff);
+    int frac = uf << 9;
+    if (exp && frac)
+        return uf;
+    else
+        return uf & ~(0x1u << 31);
 }
 
 /*
