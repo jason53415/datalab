@@ -845,7 +845,7 @@ int isAsciiDigit(int x)
  */
 int isEqual(int x, int y)
 {
-    return 42;
+    return !(x ^ y);
 }
 
 /*
