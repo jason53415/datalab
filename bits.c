@@ -917,7 +917,7 @@ int isNegative(int x)
  */
 int isNonNegative(int x)
 {
-    return 42;
+    return !(x >> 30 >> 1);
 }
 
 /*
