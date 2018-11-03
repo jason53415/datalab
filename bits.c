@@ -905,7 +905,7 @@ int isLessOrEqual(int x, int y)
  */
 int isNegative(int x)
 {
-    return 42;
+    return !(~(x >> 30 >> 1) ^ 0x0);
 }
 
 /*
