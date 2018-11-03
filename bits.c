@@ -1081,7 +1081,8 @@ int logicalNeg(int x)
  */
 int logicalShift(int x, int n)
 {
-    return 42;
+    int sign = x & (0x1u << 31);
+    return (x >> n) ^ (sign >> n << 1);
 }
 
 /*
