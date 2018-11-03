@@ -1115,7 +1115,7 @@ int minimumOfTwo(int x, int y)
  */
 int minusOne(void)
 {
-    return 42;
+    return ~0x0;
 }
 
 /*
