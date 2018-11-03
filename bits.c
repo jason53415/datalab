@@ -761,7 +761,24 @@ int greatestBitPos(int x)
  */
 int howManyBits(int x)
 {
-    return 0;
+    x = x ^ (x >> 30 >> 1);
+    int bit = 0;
+    int shift = !!(x >> 16) << 4;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 8) << 3;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 4) << 2;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 2) << 1;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 1);
+    bit = bit + shift;
+    x = x >> shift;
+    return bit + x + 1;
 }
 
 /*
