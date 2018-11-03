@@ -804,7 +804,20 @@ int implication(int x, int y)
  */
 int intLog2(int x)
 {
-    return 42;
+    int shift = !!(x >> 16) << 4;
+    int bit = shift;
+    x = x >> shift;
+    shift = !!(x >> 8) << 3;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 4) << 2;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 2) << 1;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 1);
+    return bit + shift;
 }
 
 /*
