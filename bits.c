@@ -1154,7 +1154,10 @@ int negate(int x)
  */
 int oddBits(void)
 {
-    return 42;
+    int mask = 0Xaa;
+    mask = mask | (mask << 8);
+    mask = mask | (mask << 16);
+    return mask;
 }
 
 /*
