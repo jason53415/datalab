@@ -1017,7 +1017,7 @@ int isTmax(int x)
  */
 int isTmin(int x)
 {
-    return 42;
+    return !((x ^ (~x + 1)) | !x);
 }
 
 /*
