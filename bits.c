@@ -873,7 +873,11 @@ int isGreater(int x, int y)
  */
 int isLess(int x, int y)
 {
-    return 42;
+    int sign_x = (x >> 30 >> 1) & 0x1;
+    int sign_y = (y >> 30 >> 1) & 0x1;
+    int diff = ~x + y + 1;
+    int greater = !(((diff >> 30 >> 1) ^ 0x0) | !diff);
+    return (sign_x & (!sign_y)) | ((!(sign_x ^ sign_y)) & greater);
 }
 
 /*
