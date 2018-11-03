@@ -830,7 +830,10 @@ int intLog2(int x)
  */
 int isAsciiDigit(int x)
 {
-    return 42;
+    int condition1 = !((x >> 4) ^ 0x3);
+    int condition2 = !((x & 0x8) ^ 0x0);
+    int condition3 = !((x & 0x6) ^ 0x0);
+    return condition1 & (condition2 | condition3);
 }
 
 /*
