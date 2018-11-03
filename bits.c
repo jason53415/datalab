@@ -792,7 +792,7 @@ int howManyBits(int x)
  */
 int implication(int x, int y)
 {
-    return 42;
+    return !(x & ~y);
 }
 
 /*
