@@ -980,7 +980,7 @@ int isPallindrome(int x)
  */
 int isPositive(int x)
 {
-    return 42;
+    return !((x & (0x1u << 31)) | !x);
 }
 
 /*
