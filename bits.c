@@ -728,9 +728,8 @@ int getByte(int x, int n)
  */
 int greatestBitPos(int x)
 {
-    int bit = 0;
     int shift = !!(x >> 16) << 4;
-    bit = bit + shift;
+    int bit = shift;
     x = x >> shift;
     shift = !!(x >> 8) << 3;
     bit = bit + shift;
@@ -762,9 +761,8 @@ int greatestBitPos(int x)
 int howManyBits(int x)
 {
     x = x ^ (x >> 30 >> 1);
-    int bit = 0;
     int shift = !!(x >> 16) << 4;
-    bit = bit + shift;
+    int bit = shift;
     x = x >> shift;
     shift = !!(x >> 8) << 3;
     bit = bit + shift;
