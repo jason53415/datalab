@@ -1042,7 +1042,7 @@ int isZero(int x)
  */
 int leastBitPos(int x)
 {
-    return 42;
+    return (~x + 1) & x;
 }
 
 /*
