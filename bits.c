@@ -728,7 +728,23 @@ int getByte(int x, int n)
  */
 int greatestBitPos(int x)
 {
-    return 42;
+    int bit = 0;
+    int shift = !!(x >> 16) << 4;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 8) << 3;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 4) << 2;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 2) << 1;
+    bit = bit + shift;
+    x = x >> shift;
+    shift = !!(x >> 1);
+    bit = bit + shift;
+    x = x >> shift;
+    return x << bit;
 }
 
 /* howManyBits - return the minimum number of bits required to represent x in
