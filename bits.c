@@ -1055,7 +1055,22 @@ int leastBitPos(int x)
  */
 int leftBitCount(int x)
 {
-    return 42;
+    int shift = !(~(x >> 16)) << 4;
+    int bit = shift;
+    x = x << shift;
+    shift = !(~(x >> 24)) << 3;
+    bit = bit + shift;
+    x = x << shift;
+    shift = !(~(x >> 28)) << 2;
+    bit = bit + shift;
+    x = x << shift;
+    shift = !(~(x >> 30)) << 1;
+    bit = bit + shift;
+    x = x << shift;
+    shift = !(~(x >> 30 >> 1));
+    bit = bit + shift;
+    x = x << shift;
+    return bit + ((x >> 30 >> 1) & 0x1);
 }
 
 /*
