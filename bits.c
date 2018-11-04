@@ -1280,7 +1280,14 @@ int satMul2(int x)
  */
 int satMul3(int x)
 {
-    return 42;
+    int mask = 0x1u << 31;
+    int y = x >> 30 >> 1;
+    int absx = (x + y) ^ y;
+    int absmul2 = absx << 1;
+    int absmul3 = absmul2 + absx;
+    int mul = (absmul3 + y) ^ y;
+    int overflow = (absmul2 | absmul3) >> 30 >> 1;
+    return (overflow & (~mask ^ y)) | (~overflow & (mul | (y & mask)));
 }
 
 /*
