@@ -1314,7 +1314,9 @@ int sign(int x)
  */
 int signMag2TwosComp(int x)
 {
-    return 42;
+    int sign = x & (0x1u << 31);
+    int y = sign >> 30 >> 1;
+    return ((x ^ sign) + y) ^ y;
 }
 
 /*
