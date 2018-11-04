@@ -930,7 +930,7 @@ int isNonNegative(int x)
  */
 int isNonZero(int x)
 {
-    return 42;
+    return ((x | (~x + 1)) >> 30 >> 1) & 0x1;
 }
 
 /*
