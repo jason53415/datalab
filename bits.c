@@ -1068,7 +1068,7 @@ int leftBitCount(int x)
  */
 int logicalNeg(int x)
 {
-    return 42;
+    return ~((x | (~x + 1)) >> 30 >> 1) & 0x1;
 }
 
 /*
