@@ -1421,7 +1421,10 @@ int trueThreeFourths(int x)
  */
 int twosComp2SignMag(int x)
 {
-    return 42;
+    int sign = x & (0x1u << 31);
+    int y = sign >> 30 >> 1;
+    int absx = (x + y) ^ y;
+    return sign | absx;
 }
 
 /*
