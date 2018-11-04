@@ -1234,7 +1234,18 @@ int rotateRight(int x, int n)
  */
 int satAdd(int x, int y)
 {
-    return 42;
+    int sum = x + y;
+    int mask = 0x1u << 31;
+    int sign_x = x & mask;
+    int sign_y = y & mask;
+    int sign_sum = sum & mask;
+    int pos_overflow = (sign_x ^ 0) | (sign_y ^ 0) | (sign_sum ^ mask);
+    int neg_overflow = (sign_x ^ mask) | (sign_y ^ mask) | (sign_sum ^ 0);
+    int max = ~mask;
+    int min = max + 1;
+    return (~(pos_overflow >> 30 >> 1) & max) |
+           (~(neg_overflow >> 30 >> 1) & min) |
+           (((pos_overflow & neg_overflow) >> 30 >> 1) & sum);
 }
 
 /*
