@@ -1259,7 +1259,12 @@ int satAdd(int x, int y)
  */
 int satMul2(int x)
 {
-    return 42;
+    int mask = 0x1u << 31;
+    int y = x >> 30 >> 1;
+    int absmul = ((x + y) ^ y) << 1;
+    int mul = (absmul + y) ^ y;
+    int overflow = (absmul & mask) >> 30 >> 1;
+    return (overflow & (~mask ^ y)) | (~overflow & (mul | (y & mask)));
 }
 
 /*
