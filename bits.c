@@ -993,7 +993,8 @@ int isPositive(int x)
  */
 int isPower2(int x)
 {
-    return 42;
+    int test = x << 1;
+    return !((!test) | ((x & (~x + 1)) ^ x));
 }
 
 /*
