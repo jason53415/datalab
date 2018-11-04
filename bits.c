@@ -1340,7 +1340,9 @@ int specialBits(void)
  */
 int subtractionOK(int x, int y)
 {
-    return 42;
+    int sub = x + ~y + 1;
+    int ok = ~(sub ^ x) | ~(x ^ y);
+    return (ok >> 30 >> 1) & 0x1;
 }
 
 /*
