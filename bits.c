@@ -620,7 +620,9 @@ int floatIsLess(unsigned uf, unsigned ug)
  */
 unsigned floatNegate(unsigned uf)
 {
-    return 42;
+    int exp = !(~(uf >> 23) & 0xff);
+    int frac = uf << 9;
+    return (exp && frac) ? uf : uf ^ (0x1u << 31);
 }
 
 /*
