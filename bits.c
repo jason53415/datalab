@@ -1438,7 +1438,13 @@ int trueFiveEighths(int x)
  */
 int trueThreeFourths(int x)
 {
-    return 42;
+    int y = x >> 30 >> 1;
+    int absx = (x + y) ^ y;
+    int first = (absx >> 2) & ~(0x3 << 30);
+    first = (first << 1) + first;
+    int second = absx & 0x3;
+    second = ((second << 1) + second) >> 2;
+    return (first + second + y) ^ y;
 }
 
 /*
