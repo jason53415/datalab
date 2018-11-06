@@ -567,12 +567,12 @@ int floatFloat2Int(unsigned uf)
     if (exp < 0)
         return 0;
     if (exp > 31)
-        return 0x80000000;
+        return 0x1u << 31;
     frac = (exp > 23) ? (frac << (exp - 23)) : frac >> (23 - exp);
     if (!((frac >> 30 >> 1) ^ sign))
         return frac;
     else if (frac >> 30 >> 1)
-        return 0x80000000;
+        return 0x1u << 31;
     else
         return ~frac + 1;
 }
