@@ -558,7 +558,23 @@ unsigned floatAbsVal(unsigned uf)
  */
 int floatFloat2Int(unsigned uf)
 {
-    return 42;
+    int sign = uf >> 30 >> 1;
+    int exp = ((uf >> 23) & 0xff) - 127;
+    int mask = 0x1u << 23;
+    int frac = (uf & (mask - 1)) | mask;
+    if (!(uf & ~(0x1u << 31)))
+        return 0;
+    if (exp < 0)
+        return 0;
+    if (exp > 31)
+        return 0x80000000;
+    frac = (exp > 23) ? (frac << (exp - 23)) : frac >> (23 - exp);
+    if (!((frac >> 30 >> 1) ^ sign))
+        return frac;
+    else if (frac >> 30 >> 1)
+        return 0x80000000;
+    else
+        return ~frac + 1;
 }
 
 /*
