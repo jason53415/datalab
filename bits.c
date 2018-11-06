@@ -1159,7 +1159,10 @@ int minusOne(void)
  */
 int multFiveEighths(int x)
 {
-    return 42;
+    int multi = (x << 2) + x;
+    int sign = multi >> 30 >> 1;
+    int neground = ((multi + 0x7) >> 3) & sign;
+    return neground + ((multi & ~sign) >> 3);
 }
 
 /*
