@@ -1423,7 +1423,13 @@ int tmin(void)
  */
 int trueFiveEighths(int x)
 {
-    return 42;
+    int y = x >> 30 >> 1;
+    int absx = (x + y) ^ y;
+    int first = (absx >> 3) & ~(0x7 << 29);
+    first = (first << 2) + first;
+    int second = absx & 0x7;
+    second = ((second << 2) + second) >> 3;
+    return (first + second + y) ^ y;
 }
 
 /*
