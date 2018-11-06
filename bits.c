@@ -588,7 +588,29 @@ int floatFloat2Int(unsigned uf)
  */
 unsigned floatInt2Float(int x)
 {
-    return 42;
+    if (!x)
+        return 0;
+    if (!(x ^ (0x1u << 31)))
+        return 0xcf << 24;
+    int n = 30;
+    int y = x >> 30 >> 1;
+    x = (x + y) ^ y;
+    while (!(x & (1 << n)))
+        n = n - 1;
+    if (n <= 23)
+        x = x << (23 - n);
+    else {
+        x = x + (0x1u << (n - 24));
+        int check = x << (55 - n);
+        if (!check)
+            x = x & ((~0x0) << (n - 22));
+        if (!(x & (0x1u << n)))
+            n = n + 1;
+        x = x >> (n - 23);
+    }
+    x = x & ((0x1u << 23) + ~0x0);
+    n = (n + 127) << 23;
+    return x | n | (y & (0x1u << 31));
 }
 
 /*
