@@ -1109,7 +1109,13 @@ int logicalShift(int x, int n)
  */
 int maximumOfTwo(int x, int y)
 {
-    return 42;
+    int sign_x = x >> 30 >> 1;
+    int sign_y = y >> 30 >> 1;
+    int sign_diff = sign_x ^ sign_y;
+    int case1 = sign_diff & ((~sign_x & x) | (~sign_y & y));
+    int diff = (x + ~y + 1) >> 30 >> 1;
+    int case2 = ~sign_diff & ((~diff & x) | (diff & y));
+    return case1 | case2;
 }
 
 /*
