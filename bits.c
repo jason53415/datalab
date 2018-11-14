@@ -767,7 +767,23 @@ unsigned floatScale2(unsigned uf)
  */
 unsigned floatScale64(unsigned uf)
 {
-    return 42;
+    int sign = uf & (0x1u << 31);
+    int exp = (uf >> 23) & 0xff;
+    int count = 22;
+    if (exp == 0) {
+        if (!(uf & 0x007e0000))
+            return (uf << 6) | sign;
+        while (!(uf & (1 << count)))
+            count = count - 1;
+        uf = uf << (23 - count);
+        return sign | (uf & 0x807fffff) | ((count - 16) << 23);
+    }
+    if (exp == 255)
+        return uf;
+    exp = exp + 6;
+    if (exp >= 255)
+        return 0x7f800000 | sign;
+    return (uf & 0x807fffff) | (exp << 23);
 }
 
 /*
