@@ -626,10 +626,10 @@ unsigned floatInt2Float(int x)
  */
 int floatIsEqual(unsigned uf, unsigned ug)
 {
-    if (!(uf ^ ug))
-        return !!((~(uf >> 23) & 0xff) | !(uf << 9));
-    else
-        return !((uf | ug) ^ (0x1u << 31));
+    int same = !(uf ^ ug);
+    int notnan = !!((~(uf >> 23) & 0xff) | !(uf << 9));
+    int iszero = !((uf | ug) ^ (0x1u << 31));
+    return (same & notnan) | ((!same) & iszero);
 }
 
 /*
