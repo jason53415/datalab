@@ -734,7 +734,16 @@ unsigned floatScale1d2(unsigned uf)
  */
 unsigned floatScale2(unsigned uf)
 {
-    return 42;
+    int sign = uf & (0x1u << 31);
+    int exp = (uf >> 23) & 0xff;
+    if (!(exp ^ 0x0))
+        return (uf << 1) | sign;
+    if (!(exp ^ 0xff))
+        return uf;
+    exp = exp + 1;
+    if (!(exp ^ 0xff))
+        return (0xff << 23) | sign;
+    return (uf & ~(0xff << 23)) | (exp << 23);
 }
 
 /*
