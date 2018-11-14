@@ -773,7 +773,24 @@ unsigned floatScale64(unsigned uf)
  */
 unsigned floatUnsigned2Float(unsigned u)
 {
-    return 42;
+    int n = 31;
+    if (!u)
+        return 0;
+    while (!(u & (0x1u << n)))
+        n--;
+    if (n <= 23)
+        u = u << (23 - n);
+    else {
+        u = u + (0x1u << (n - 24));
+        if (!(u << (55 - n)))
+            u = u & ((~0x0) << (n - 22));
+        if (!(u & (1 << n)))
+            n = n + 1;
+        u = u >> (n - 23);
+    }
+    u = u & 0x007fffff;
+    n = (n + 127) << 23;
+    return u | n;
 }
 
 /*
