@@ -682,7 +682,11 @@ unsigned floatNegate(unsigned uf)
  */
 unsigned floatPower2(int x)
 {
-    return 42;
+    if (x < -127)
+        return 0;
+    if (x > 128)
+        return 0xff << 23;
+    return (x + 127) << 23;
 }
 
 /*
