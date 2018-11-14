@@ -626,7 +626,10 @@ unsigned floatInt2Float(int x)
  */
 int floatIsEqual(unsigned uf, unsigned ug)
 {
-    return 42;
+    if (!(uf ^ ug))
+        return !!((~(uf >> 23) & 0xff) | !(uf << 9));
+    else
+        return !((uf | ug) ^ (0x1u << 31));
 }
 
 /*
