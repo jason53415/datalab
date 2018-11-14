@@ -718,7 +718,15 @@ unsigned floatPower2(int x)
  */
 unsigned floatScale1d2(unsigned uf)
 {
-    return 42;
+    int sign = uf & (0x1u << 31);
+    int exp = (uf >> 23) & 0xff;
+    if ((uf & 0x7fffffff) >= 0x7f800000)
+        return uf;
+    if (exp > 1)
+        return (uf & 0x807fffff) | ((exp - 1) << 23);
+    if (!((uf & 0x3) ^ 0x3))
+        uf = uf + 0x2;
+    return ((uf >> 1) & 0x007fffff) | sign;
 }
 
 /*
