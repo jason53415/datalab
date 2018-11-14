@@ -645,7 +645,23 @@ int floatIsEqual(unsigned uf, unsigned ug)
  */
 int floatIsLess(unsigned uf, unsigned ug)
 {
-    return 42;
+    int uf_sign = (uf >> 30 >> 1) & 0x1;
+    int ug_sign = (ug >> 30 >> 1) & 0x1;
+    int uf_exp = (uf >> 23) & 0xff;
+    int ug_exp = (ug >> 23) & 0xff;
+    int uf_frac = uf & 0x007fffff;
+    int ug_frac = ug & 0x007fffff;
+    if (!((uf | ug) << 1))
+        return 0;
+    if ((!(uf_exp ^ 0xff) && uf_frac) || (!(ug_exp ^ 0xff) && ug_frac))
+        return 0;
+    if (uf_sign ^ ug_sign)
+        return uf_sign > ug_sign;
+    if (uf_exp ^ ug_exp)
+        return (uf_exp < ug_exp) ^ uf_sign;
+    if (uf_frac ^ ug_frac)
+        return (uf_frac < ug_frac) ^ uf_sign;
+    return 0;
 }
 
 /*
